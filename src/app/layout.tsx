@@ -1,0 +1,25 @@
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: { default: "نظام الموارد البشرية", template: "%s | نظام الموارد البشرية" },
+  description: "نظام متكامل لإدارة الموارد البشرية وفق نظام العمل السعودي",
+};
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#059673" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ar" dir="rtl">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-screen font-sans">{children}</body>
+    </html>
+  );
+}

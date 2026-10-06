@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --color-brand-50: #ecfdf7;
+  --color-brand-100: #d1faec;
+  --color-brand-200: #a7f3da;
+  --color-brand-300: #6ee7c2;
+  --color-brand-400: #34d3a6;
+  --color-brand-500: #10b98e;
+  --color-brand-600: #059673;
+  --color-brand-700: #04785f;
+  --color-brand-800: #065f4c;
+  --color-brand-900: #064e40;
+  --color-ink: #0f1f2e;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: #f4f6f8;
+  color: var(--color-ink);
+  font-size: 15.5px;
+  -webkit-font-smoothing: antialiased;
+}
+
+@utility card {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgba(15,31,46,0.04)];
+}
+@utility card-pad {
+    @apply p-5 sm:p-6;
+}
+@utility card-title {
+    @apply text-base font-bold text-slate-800;
+}
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2
+      disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap;
+}
+@utility btn-primary {
+    @apply btn bg-brand-600 text-white shadow-sm hover:bg-brand-700;
+}
+@utility btn-secondary {
+    @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50;
+}
+@utility btn-danger {
+    @apply btn bg-rose-600 text-white hover:bg-rose-700;
+}
+@utility btn-ghost {
+    @apply btn text-slate-600 hover:bg-slate-100;
+}
+@utility btn-sm {
+    @apply px-3 py-1.5 text-xs rounded-lg;
+}
+@utility label {
+    @apply mb-1.5 block text-sm font-semibold text-slate-700;
+}
+@utility hint {
+    @apply mt-1 text-xs text-slate-500;
+}
+@utility input {
+    @apply block w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-[15px] text-slate-900
+      placeholder:text-slate-400 transition focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-100
+      disabled:bg-slate-100;
+}
+@utility badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap;
+}
+@utility table {
+    @apply w-full text-sm;
+}
+@utility grid-form {
+    @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-3;
+}
+@utility section-title {
+    @apply mb-4 flex items-center gap-2 text-lg font-bold text-slate-800;
+}
+@utility kv {
+    @apply grid grid-cols-[minmax(110px,40%)_1fr] gap-x-3 gap-y-2.5 text-sm;
+}
+
+@layer components {
+  textarea.input {
+      @apply min-h-24 leading-7;
+  }
+  .table th {
+      @apply bg-slate-50 px-4 py-3 text-start text-xs font-bold text-slate-500 whitespace-nowrap;
+  }
+  .table td {
+      @apply border-t border-slate-100 px-4 py-3 align-middle;
+  }
+  .table tr:hover td {
+      @apply bg-slate-50/60;
+  }
+  .kv dt {
+      @apply text-slate-500;
+  }
+  .kv dd {
+      @apply font-semibold text-slate-800;
+  }
+}
+
+/* ─────── الطباعة: نسخة ورقية رسمية ─────── */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    font-size: 12.5px;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+}
+
+.print-sheet table.doc {
+  width: 100%;
+  border-collapse: collapse;
+}
+.print-sheet table.doc th,
+.print-sheet table.doc td {
+  border: 1px solid #94a3b8;
+  padding: 6px 9px;
+  text-align: start;
+  vertical-align: top;
+}
+.print-sheet table.doc th {
+  background: #f1f5f9;
+  font-weight: 700;
+  width: 28%;
+}
