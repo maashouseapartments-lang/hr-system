@@ -11,9 +11,9 @@ import { markAllRead } from "./actions";
 
 const count = (sql: string, ...p: unknown[]) => Number(get<{ c: number }>(sql, ...p)?.c ?? 0);
 
-export default async function Dashboard({ searchParams }: { searchParams: Promise<{ denied?: string }> }) {
+export default async function Dashboard({ searchParams }: { searchParams: Promise<{ denied?: string; demo?: string }> }) {
   const u = await requireUser();
-  const { denied } = await searchParams;
+  const { denied, demo } = await searchParams;
   const t = today();
   const tasks = myTasks(u);
   const notes = notificationsFor(u, 8);
@@ -37,7 +37,19 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
     <>
       <PageHeader title={`${hour < 12 ? "صباح الخير" : "مساء الخير"}، ${u.display_name.split(" ")[0]}`} subtitle={`${fmtDate(t)} — ${fmtHijri(t)}`} />
       {denied && <div className="mb-4"><Alert tone="rose">ليست لديك صلاحية الوصول للصفحة المطلوبة.</Alert></div>}
-      {setupMissing && (
+      {demo && (
+        <div className="mb-6">
+          <Alert tone="brand" title="أهلاً بك في الشركة التجريبية 👋 هكذا تجرب النظام:">
+            <ol className="list-decimal space-y-1 ps-5">
+              <li>أضف موقع الحضور: <Link href="/settings/locations?new=1" className="font-bold underline">تهيئة النظام ← مواقع الحضور</Link> واضغط «استخدم موقعي الحالي»، وفعّل «تخصيصه لجميع الموظفين».</li>
+              <li>جرّب دورة الإجازة: سجّل خروج، وادخل بحساب الموارد البشرية (1004) وافتح طلب أحمد من صندوق المهام، ثم انتقل بين الحسابات (1001 ← 1005 ← 1002 ← 1006) حسب المرحلة.</li>
+              <li>جرّب الحضور: ادخل بحساب موظف (1002) واضغط «تسجيل الحضور».</li>
+            </ol>
+            <div className="mt-2">كلمة المرور لكل الحسابات: <b dir="ltr">123456</b>. والحسابات تظهر في صفحة الدخول للضغط عليها مباشرة.</div>
+          </Alert>
+        </div>
+      )}
+      {setupMissing && !demo && (
         <div className="mb-6">
           <Alert tone="amber" title="أكمل تهيئة النظام">
             لم تكتمل خطوات التهيئة (الأقسام، مواقع الحضور، الموظفين). <Link href="/settings" className="font-bold underline">اذهب لخطوات التهيئة ←</Link>

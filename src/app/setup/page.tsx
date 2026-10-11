@@ -4,7 +4,7 @@ import { get } from "@/lib/db";
 import { ActionForm, SubmitButton } from "@/components/forms";
 import { CompanyFields, ScheduleFields } from "@/components/company-fields";
 import { Field } from "@/components/ui";
-import { setupSystem } from "./actions";
+import { setupSystem, setupDemo } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "تهيئة النظام" };
@@ -35,6 +35,13 @@ export default function SetupPage() {
         <h1 className="text-3xl font-extrabold">تهيئة نظام الموارد البشرية لشركتك</h1>
         <p className="mt-2 text-slate-500">ثلاث خطوات فقط، وتقدر تعدّل كل شيء لاحقاً من صفحة «تهيئة النظام»</p>
       </div>
+      <form action={setupDemo} className="card mb-8 flex flex-col items-center gap-3 border-brand-200 bg-brand-50 p-6 text-center sm:flex-row sm:text-start">
+        <div className="flex-1">
+          <div className="text-lg font-bold text-brand-800">تبي تجرب النظام أولاً؟</div>
+          <p className="text-sm text-brand-700">ننشئ لك شركة تجريبية فيها أقسام وموظفون وحسابات بكل الصلاحيات، وطلب إجازة جاهز لتجربة دورة الموافقات.</p>
+        </div>
+        <button className="btn-primary px-6 py-3">تجربة ببيانات تجريبية</button>
+      </form>
       <ActionForm action={setupSystem} className="space-y-6">
         <Step n={1} title="بيانات الشركة" desc="تظهر هذه البيانات في رأس جميع النماذج والمستندات المطبوعة">
           <CompanyFields />

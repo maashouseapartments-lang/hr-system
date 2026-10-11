@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { Building2 } from "lucide-react";
 import { ActionForm, SubmitButton } from "@/components/forms";
-import { get } from "@/lib/db";
+import { get, getSetting } from "@/lib/db";
+import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "@/lib/demo";
+import { DemoAccounts } from "./demo-accounts";
 import { getUser } from "@/lib/auth";
 import { login } from "./actions";
 
@@ -50,6 +52,7 @@ export default async function LoginPage() {
             <SubmitButton className="btn-primary w-full py-3 text-base">دخول</SubmitButton>
           </ActionForm>
           <p className="mt-6 text-center text-xs text-slate-400">الموظف: اسم المستخدم هو الرقم الوظيفي</p>
+          {getSetting("demo_mode") === "1" && <DemoAccounts accounts={DEMO_ACCOUNTS} password={DEMO_PASSWORD} />}
         </div>
       </div>
     </main>

@@ -4,6 +4,7 @@ import { get, run, tx } from "@/lib/db";
 import { createSession, hashPassword } from "@/lib/auth";
 import { safe, req, UserError } from "@/lib/action";
 import { saveCompany, scheduleFromForm, insertSchedule } from "@/lib/company";
+import { createDemoData } from "@/lib/demo";
 import type { ActionState } from "@/components/forms";
 
 export async function setupSystem(_: ActionState, fd: FormData): Promise<ActionState> {
@@ -29,4 +30,12 @@ export async function setupSystem(_: ActionState, fd: FormData): Promise<ActionS
   });
   if (r?.ok) redirect("/settings?welcome=1");
   return r;
+}
+
+/** تجربة النظام ببيانات شركة تجريبية جاهزة */
+export async function setupDemo(): Promise<void> {
+  if (get("SELECT 1 FROM users LIMIT 1")) redirect("/login");
+  const adminId = createDemoData();
+  await createSession(adminId);
+  redirect("/dashboard?demo=1");
 }
